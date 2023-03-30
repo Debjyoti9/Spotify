@@ -106,6 +106,15 @@ private ResponseEntity<?> responseEntity;
             throw new TrackNotFoundException();
         }
     }
+    @GetMapping("/tracks/{trackId}")
+    public ResponseEntity<?> getSingleTrackFromLibrary(@PathVariable String trackId) throws TrackNotFoundException{
+        try {
+
+            return new ResponseEntity<>(userTrackService.getSingleTrackFromLibrary(trackId),HttpStatus.FOUND);
+        } catch (TrackNotFoundException trackNotFoundException) {
+            throw new TrackNotFoundException();
+        }
+    }
 
 
     @DeleteMapping("/user/{playListName}")

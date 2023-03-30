@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -30,12 +33,16 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) throws InvalidCredentialsException
     {
+        Map<String,String> token = new HashMap<>();
+//        boolean flag = true;
         User retrievedUser = userService.findByEmailAndPassword(user.getEmail(),user.getPassword());
         if(retrievedUser==null)
         {
-            throw new InvalidCredentialsException();
+            token.put("message", "Login Unsuccessful");
+            token.put("emailId", user.getEmail());
+            return new ResponseEntity<>(token,HttpStatus.OK);
         }
-        String token = securityTokenGenerator.createToken(user);
+        token = securityTokenGenerator.createToken(user);
         return new ResponseEntity<>(token,HttpStatus.OK);
     }
 }

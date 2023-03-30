@@ -16,7 +16,7 @@ public interface UserTrackService {
     public User deleteSinglePlayListFromPlaylists(String email, String playlistName) throws PlayListNotFoundException;
     List<String> getAllPlaylistsForUser(String email) throws PlayListNotFoundException;
     Track getSingleTrackFromPlaylist(String email,String trackId,String playListName) throws TrackNotFoundException;
-
+    TrackLibrary getSingleTrackFromLibrary(String trackId) throws TrackNotFoundException;
     List<TrackLibrary> getAllTracks() throws TrackNotFoundException;
     TrackLibrary saveTrack(TrackLibrary trackLibrary) ;
 

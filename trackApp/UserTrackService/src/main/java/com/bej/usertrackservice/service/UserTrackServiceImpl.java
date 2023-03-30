@@ -192,6 +192,12 @@ public class UserTrackServiceImpl implements UserTrackService {
         }
         return track;
     }
+
+    @Override
+    public TrackLibrary getSingleTrackFromLibrary(String trackId) throws TrackNotFoundException {
+        return this.trackLibraryRepository.findById(trackId).get();
+    }
+
     @Override
     public TrackLibrary saveTrack(TrackLibrary trackLibrary){
 

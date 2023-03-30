@@ -12,23 +12,23 @@ import java.util.Map;
 
 @Service
 public class JWTSecurityTokenGeneratorImpl implements SecurityTokenGenerator {
-    public String createToken(User user){
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("email", user.getEmail());
-        return generateToken(claims,user.getEmail());
-    }
 
-    public String generateToken(Map<String,Object> claims,String subject) {
-         String jwtToken = Jwts.builder().setIssuer("MovieZone")
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date())
+
+    @Override
+    public Map<String,String> createToken(User user) {
+        Map<String,String> tokenMap = new HashMap<>();
+        user.setPassword("");
+        Map<String, String> userData = new HashMap<>();
+        userData.put("email",user.getEmail());
+        String jwtTokenString = Jwts.builder()
+                .claim("email",user.getEmail()).setSubject(user.getEmail())
                 .signWith(SignatureAlgorithm.HS256,"mysecret")
-                //mysecret is the key that has to be shared everytime you do encrypt and decrypt process
                 .compact();
-         return jwtToken;
+        tokenMap.put("token",jwtTokenString);
 
+        tokenMap.put("message", "Login Successful");
+        tokenMap.put("emailId", user.getEmail());
+
+        return tokenMap;
     }
-
-
 }

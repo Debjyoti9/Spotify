@@ -3,8 +3,6 @@ package com.bej.usertrackservice.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Document
 public class TrackLibrary {
 
@@ -12,24 +10,24 @@ public class TrackLibrary {
     private String trackId;
     private String trackName;
     private String genre;
-    private List<String> leadSinger;
+    private String leadSinger;
     private String album;
     private int length;
-    private String playListName;
+//    private String playListName;
 
-    private Artist artist;
+    private String artist;
 
     public TrackLibrary() {
     }
 
-    public TrackLibrary(String trackId, String trackName, String genre, List<String> leadSinger, String album, int length, String playListName, Artist artist) {
+    public TrackLibrary(String trackId, String trackName, String genre, String leadSinger, String album, int length, String artist) {
         this.trackId = trackId;
         this.trackName = trackName;
         this.genre = genre;
         this.leadSinger = leadSinger;
         this.album = album;
         this.length = length;
-        this.playListName = playListName;
+//        this.playListName = playListName;
         this.artist = artist;
     }
 
@@ -57,11 +55,11 @@ public class TrackLibrary {
         this.genre = genre;
     }
 
-    public List<String> getLeadSinger() {
+    public String getLeadSinger() {
         return leadSinger;
     }
 
-    public void setLeadSinger(List<String> leadSinger) {
+    public void setLeadSinger(String leadSinger) {
         this.leadSinger = leadSinger;
     }
 
@@ -81,19 +79,19 @@ public class TrackLibrary {
         this.length = length;
     }
 
-    public String getPlayListName() {
-        return playListName;
-    }
+//    public String getPlayListName() {
+//        return playListName;
+//    }
+//
+//    public void setPlayListName(String playListName) {
+//        this.playListName = playListName;
+//    }
 
-    public void setPlayListName(String playListName) {
-        this.playListName = playListName;
-    }
-
-    public Artist getArtist() {
+    public String getArtist() {
         return artist;
     }
 
-    public void setArtist(Artist artist) {
+    public void setArtist(String artist) {
         this.artist = artist;
     }
 }

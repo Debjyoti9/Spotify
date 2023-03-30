@@ -33,10 +33,6 @@ private UserRepository userRepository;
         System.out.println("password"+password);
         User loggedInUser = userRepository.findByEmailAndPassword(email,password);
         System.out.println(loggedInUser);
-        if(loggedInUser == null)
-        {
-            throw new InvalidCredentialsException();
-        }
 
         return loggedInUser;
     }
