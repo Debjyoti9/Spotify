@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v2")
@@ -58,7 +59,7 @@ private ResponseEntity<?> responseEntity;
 
 
     @PostMapping("/saveTrack")
-    public ResponseEntity<?> saveTrack(@RequestBody TrackLibrary trackLibrary) {
+    public ResponseEntity<?> saveTrack(@RequestBody List<TrackLibrary> trackLibrary) {
             return new ResponseEntity<>(this.userTrackService.saveTrack(trackLibrary), HttpStatus.OK);
 
     }
@@ -72,6 +73,22 @@ private ResponseEntity<?> responseEntity;
                 throw new TrackNotFoundException();
             }
 
+    }
+
+    @GetMapping("/user/singleUser")
+    public ResponseEntity<?> getUser(HttpServletRequest request) throws UserNotFoundException{
+        try {
+
+            System.out.println("header" + request.getHeader("Authorization"));
+            Claims claims = (Claims) request.getAttribute("claims");
+            System.out.println("email from claims :: " + claims.getSubject());
+            String email = claims.getSubject();
+            System.out.println("email :: "+email);
+
+            return new ResponseEntity<>(this.userTrackService.getUser(email),HttpStatus.FOUND);
+        }catch (UserNotFoundException userNotFoundException){
+            throw new UserNotFoundException();
+        }
     }
 
     @GetMapping("/user/playListNames")
@@ -112,6 +129,23 @@ private ResponseEntity<?> responseEntity;
 
             return new ResponseEntity<>(userTrackService.getSingleTrackFromLibrary(trackId),HttpStatus.FOUND);
         } catch (TrackNotFoundException trackNotFoundException) {
+            throw new TrackNotFoundException();
+        }
+    }
+
+    @GetMapping("/user/{playListName}")
+    public ResponseEntity<?> getAllTracksFromAPlayList(@PathVariable String playListName,HttpServletRequest request) throws TrackNotFoundException{
+        try {
+
+            System.out.println("header" +request.getHeader("Authorization"));
+            Claims claims = (Claims) request.getAttribute("claims");
+            System.out.println("email from claims :: " + claims.getSubject());
+            String email = claims.getSubject();
+            System.out.println("email :: "+email);
+
+            return new ResponseEntity<>(this.userTrackService.getAllTracksFromAPlayList(email,playListName),HttpStatus.FOUND);
+
+        }catch (TrackNotFoundException trackNotFoundException){
             throw new TrackNotFoundException();
         }
     }

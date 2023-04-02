@@ -18,6 +18,9 @@ public interface UserTrackService {
     Track getSingleTrackFromPlaylist(String email,String trackId,String playListName) throws TrackNotFoundException;
     TrackLibrary getSingleTrackFromLibrary(String trackId) throws TrackNotFoundException;
     List<TrackLibrary> getAllTracks() throws TrackNotFoundException;
-    TrackLibrary saveTrack(TrackLibrary trackLibrary) ;
+    List<TrackLibrary> saveTrack(List<TrackLibrary> trackLibrary) ; //Admin only
+    List<Track> getAllTracksFromAPlayList(String email, String playListName) throws TrackNotFoundException;
+
+    User getUser(String email) throws UserNotFoundException;
 
 }

@@ -12,8 +12,6 @@ public class User {
     private String password;
     private String phoneNumber;
     private List<Playlist> playLists;
-//    private List<Track> trackList;
-//    private Playlist playList;
 
     public User() {
     }

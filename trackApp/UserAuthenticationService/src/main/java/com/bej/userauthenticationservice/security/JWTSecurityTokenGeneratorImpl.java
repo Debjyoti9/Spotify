@@ -17,9 +17,9 @@ public class JWTSecurityTokenGeneratorImpl implements SecurityTokenGenerator {
     @Override
     public Map<String,String> createToken(User user) {
         Map<String,String> tokenMap = new HashMap<>();
-        user.setPassword("");
-        Map<String, String> userData = new HashMap<>();
-        userData.put("email",user.getEmail());
+//        user.setPassword("");
+//        Map<String, String> userData = new HashMap<>();
+//        userData.put("email",user.getEmail());
         String jwtTokenString = Jwts.builder()
                 .claim("email",user.getEmail()).setSubject(user.getEmail())
                 .signWith(SignatureAlgorithm.HS256,"mysecret")

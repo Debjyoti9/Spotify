@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class TrackLibrary {
 
     @Id
-    private String trackId;
+    private String id;
     private String trackName;
     private String genre;
     private String leadSinger;
@@ -20,8 +20,8 @@ public class TrackLibrary {
     public TrackLibrary() {
     }
 
-    public TrackLibrary(String trackId, String trackName, String genre, String leadSinger, String album, int length, String artist) {
-        this.trackId = trackId;
+    public TrackLibrary(String id, String trackName, String genre, String leadSinger, String album, int length, String artist) {
+        this.id = id;
         this.trackName = trackName;
         this.genre = genre;
         this.leadSinger = leadSinger;
@@ -31,12 +31,12 @@ public class TrackLibrary {
         this.artist = artist;
     }
 
-    public String getTrackId() {
-        return trackId;
+    public String getId() {
+        return id;
     }
 
-    public void setTrackId(String trackId) {
-        this.trackId = trackId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTrackName() {

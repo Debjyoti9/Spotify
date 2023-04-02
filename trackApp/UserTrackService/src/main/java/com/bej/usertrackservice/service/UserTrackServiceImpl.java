@@ -105,7 +105,7 @@ public class UserTrackServiceImpl implements UserTrackService {
                     List<Track> trackList = playlists.get(i).getTrackList();
                     for (int j = 0; j < trackList.size(); j++) {
 
-                        if (trackList.get(j).getTrackId().equals(trackId)) {
+                        if (trackList.get(j).getId().equals(trackId)) {
                             playlists.get(i).getTrackList().remove(trackList.get(j));
                             user.setPlayLists(playlists);
                             break;
@@ -183,7 +183,7 @@ public class UserTrackServiceImpl implements UserTrackService {
             }
         }
         for (int i = 0; i < tracks.size(); i++) {
-            if (tracks.get(i).getTrackId().equals(trackId)) {
+            if (tracks.get(i).getId().equals(trackId)) {
                 track = tracks.get(i);
                 break;
             }else {
@@ -199,9 +199,38 @@ public class UserTrackServiceImpl implements UserTrackService {
     }
 
     @Override
-    public TrackLibrary saveTrack(TrackLibrary trackLibrary){
+    public List<TrackLibrary> saveTrack(List<TrackLibrary> trackLibrary){
 
-        return this.trackLibraryRepository.save(trackLibrary);
+        List<TrackLibrary> trackLibraryList = new ArrayList<>();
+        for (int i = 0; i < trackLibrary.size(); i++) {
+            trackLibraryList.add(this.trackLibraryRepository.save(trackLibrary.get(i)));
+        }
+
+        return trackLibraryList;
 
     }
+
+    @Override
+    public List<Track> getAllTracksFromAPlayList(String email, String playListName) throws TrackNotFoundException {
+        User user = userTrackRepository.findByEmail(email);
+
+        List<Track> tracks = null;
+        for (int i = 0; i < user.getPlayLists().size(); i++) {
+            if (user.getPlayLists().get(i).getPlayListName().equals(playListName)) {
+                tracks = user.getPlayLists().get(i).getTrackList();
+                break;
+            }
+        }
+        return tracks;
+
+    }
+
+    @Override
+    public User getUser(String email) throws UserNotFoundException {
+
+        User user = userTrackRepository.findByEmail(email);
+        System.out.println(user);
+        return user;
+    }
+
 }

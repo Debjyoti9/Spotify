@@ -4,21 +4,19 @@ import org.springframework.data.annotation.Id;
 
 public class Track {
     @Id
-    private String trackId;
+    private String id;
     private String trackName;
     private String genre;
     private String leadSinger;
     private String album;
     private int length;
-//    private String playListName;
-
     private String artist;
 
     public Track() {
     }
 
-    public Track(String trackId, String trackName, String genre, String leadSinger, String album, int length, String artist) {
-        this.trackId = trackId;
+    public Track(String id, String trackName, String genre, String leadSinger, String album, int length, String artist) {
+        this.id = id;
         this.trackName = trackName;
         this.genre = genre;
         this.leadSinger = leadSinger;
@@ -28,12 +26,12 @@ public class Track {
         this.artist = artist;
     }
 
-    public String getTrackId() {
-        return trackId;
+    public String getId() {
+        return id;
     }
 
-    public void setTrackId(String trackId) {
-        this.trackId = trackId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTrackName() {
